@@ -1,4 +1,4 @@
-const helloWorld = require('../controllers/helloWorld');
+const helloWorld = require('../src/controllers/helloWorld');
 
 const httpMocks = require('node-mocks-http');
 

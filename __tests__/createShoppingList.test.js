@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const httpMocks = require('node-mocks-http');
-const createShoppingList = require('../controllers/createShoppingList');
+const createShoppingList = require('../src/controllers/createShoppingList');
+const events = require('events');
 
 it('creates a new shopping list', (done) => {
   expect.assertions(1);
@@ -15,14 +16,14 @@ it('creates a new shopping list', (done) => {
   });
 
   const response = httpMocks.createResponse({
-    eventEmitter: require('events').EventEmitter,
+    eventEmitter: events.EventEmitter,
   });
 
   createShoppingList(request, response);
 
   response.on('end', () => {
     const filename = response._getData().filename;
-    const filePath = path.join(__dirname, '../controllers/shoppingLists', filename);
+    const filePath = path.join(__dirname, '../data/shoppingLists', filename);
     fs.readFile(filePath, 'utf8', (error, data) => {
       expect(data).toBe(JSON.stringify(body));
       done();

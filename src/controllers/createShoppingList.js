@@ -5,7 +5,7 @@ const createShoppingList = (req, res) => {
   const filename = Date.now().toString();
   const contents = JSON.stringify(req.body);
 
-  fs.writeFile(path.join(__dirname, 'shoppingLists', filename), contents, (err) => {
+  fs.writeFile(path.join(__dirname, '..', '..', 'data', 'shoppingLists', filename), contents, (err) => {
     if (err) throw err;
     res.send({ filename: filename });
   });
